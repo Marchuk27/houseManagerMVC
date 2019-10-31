@@ -35,15 +35,22 @@ public class OrderController {
     }
 
     @RequestMapping(value="/add-new-order", method=RequestMethod.POST)
-    public String addNewOrder(@RequestParam(value="id") int id, @RequestParam(value="fullName") String fullName, @RequestParam(value="birthDate") String birthDate) throws UnsupportedEncodingException, SQLException {
+    public String addNewOrder(@RequestParam(value="firstName") String firstName, @RequestParam(value="lastName") String lastName, @RequestParam(value="fatherName") String fatherName, @RequestParam(value="phoneNumb") String phoneNumber, @RequestParam(value="eMail") String eMail, @RequestParam(value="roomNumb") String roomNumber) throws UnsupportedEncodingException, SQLException {
 
         UserTestService userTestService = new UserTestService();
         TestUsers testUsers = new TestUsers();
-        testUsers.setId(id);
-        String UTFfullName = new String(fullName.getBytes("ISO-8859-1"), "UTF-8");
-        testUsers.setFullName(UTFfullName);
-        String UTFbirthDate = new String(birthDate.getBytes("ISO-8859-1"), "UTF-8");
-        testUsers.setBirthDate(UTFbirthDate);
+        String UTFfirstName = new String(firstName.getBytes("ISO-8859-1"), "UTF-8");
+        String UTFlastName = new String(lastName.getBytes("ISO-8859-1"), "UTF-8");
+        String UTFfatherName = new String(fatherName.getBytes("ISO-8859-1"), "UTF-8");
+        String UTFphoneNumber = new String(phoneNumber.getBytes("ISO-8859-1"), "UTF-8");
+        String UTFeMail = new String(eMail.getBytes("ISO-8859-1"), "UTF-8");
+        String UTFroomNumber = new String(roomNumber.getBytes("ISO-8859-1"), "UTF-8");
+        testUsers.setFirstName(UTFfirstName);
+        testUsers.setLastName(UTFlastName);
+        testUsers.setFatherName(UTFfatherName);
+        testUsers.setPhoneNumber(UTFphoneNumber);
+        testUsers.seteMail(UTFeMail);
+        testUsers.setRoomNumber(UTFroomNumber);
 
         try {
             userTestService.add(testUsers);

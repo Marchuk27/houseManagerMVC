@@ -4,12 +4,13 @@ import java.util.Objects;
 public class TestUsers {
 
     private int id;
-    private String fullName;
-    private String birthDate;
+    private String firstName;
+    private String lastName;
+    private String fatherName;
+    private String phoneNumber;
+    private String roomNumber;
+    private String eMail;
 
-    public TestUsers() {
-
-    }
     public int getId() {
         return id;
     }
@@ -18,29 +19,56 @@ public class TestUsers {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getBirthDate() {
-        return birthDate;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-
-    @Override
-    public String toString() {
-        return "TestUsers{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                '}';
+    public String getFatherName() {
+        return fatherName;
     }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public TestUsers() {
+
+    }
+
 }

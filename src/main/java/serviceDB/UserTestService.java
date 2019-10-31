@@ -17,15 +17,18 @@ public class UserTestService extends Util implements UserTestDao{
     @Override
     public void add(TestUsers testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO TEST_USERS (ID, FULL_NAME, BIRTH_DATE) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO SBER_USERS (FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement((sql));
 
 
-            preparedStatement.setInt(1, testUser.getId());
-            preparedStatement.setString(2, testUser.getFullName());
-            preparedStatement.setString(3, testUser.getBirthDate());
+            preparedStatement.setString(1, testUser.getFirstName());
+            preparedStatement.setString(2, testUser.getLastName());
+            preparedStatement.setString(3, testUser.getFatherName());
+            preparedStatement.setString(4, testUser.getPhoneNumber());
+            preparedStatement.setString(5, testUser.geteMail());
+            preparedStatement.setString(6, testUser.getRoomNumber());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -54,8 +57,8 @@ public class UserTestService extends Util implements UserTestDao{
             while (resultSet.next()) {
                 TestUsers testUsers = new TestUsers();
                 testUsers.setId(resultSet.getInt("ID"));
-                testUsers.setFullName(resultSet.getString("FULL_NAME"));
-                testUsers.setBirthDate(resultSet.getString("BIRTH_DATE"));
+                //testUsers.setFullName(resultSet.getString("FULL_NAME"));
+                //testUsers.setBirthDate(resultSet.getString("BIRTH_DATE"));
 
                 testUsersList.add(testUsers);
             }
@@ -86,8 +89,8 @@ public class UserTestService extends Util implements UserTestDao{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             testUsers.setId(resultSet.getInt("ID"));
-            testUsers.setFullName(resultSet.getString("FULL_NAME"));
-            testUsers.setBirthDate(resultSet.getString("BIRTH_DATE"));
+            //testUsers.setFullName(resultSet.getString("FULL_NAME"));
+            //testUsers.setBirthDate(resultSet.getString("BIRTH_DATE"));
 
             preparedStatement.executeUpdate();
 
@@ -112,8 +115,8 @@ public class UserTestService extends Util implements UserTestDao{
         try {
             preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1, testUser.getFullName());
-            preparedStatement.setString(2, testUser.getBirthDate());
+            //preparedStatement.setString(1, testUser.getFullName());
+            //preparedStatement.setString(2, testUser.getBirthDate());
             preparedStatement.setInt(3, testUser.getId());
 
             preparedStatement.executeUpdate();
