@@ -1,5 +1,6 @@
 package com.javamaster.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -34,17 +35,19 @@ public class OrderController {
     }
 
     @RequestMapping(value="/add-new-order", method=RequestMethod.POST)
-    public String addNewOrder(@RequestParam(value="id") int id, @RequestParam(value="fullName") String fullName, @RequestParam(value="birthDate") String birthDate) {
+    public String addNewOrder(@RequestParam(value="id") int id, @RequestParam(value="fullName") String fullName, @RequestParam(value="birthDate") String birthDate) throws UnsupportedEncodingException, SQLException {
 
         UserTestService userTestService = new UserTestService();
         TestUsers testUsers = new TestUsers();
         testUsers.setId(id);
-        testUsers.setFullName(fullName);
-        testUsers.setBirthDate(birthDate);
+        String UTFfullName = new String(fullName.getBytes("ISO-8859-1"), "UTF-8");
+        testUsers.setFullName(UTFfullName);
+        String UTFbirthDate = new String(birthDate.getBytes("ISO-8859-1"), "UTF-8");
+        testUsers.setBirthDate(UTFbirthDate);
 
         try {
             userTestService.add(testUsers);
-        } catch (SQLException e) {
+        } catch (SQLException e ) {
             e.printStackTrace();
         }
         return "redirect:/";

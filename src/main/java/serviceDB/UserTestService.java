@@ -22,6 +22,7 @@ public class UserTestService extends Util implements UserTestDao{
         try {
             preparedStatement = connection.prepareStatement((sql));
 
+
             preparedStatement.setInt(1, testUser.getId());
             preparedStatement.setString(2, testUser.getFullName());
             preparedStatement.setString(3, testUser.getBirthDate());

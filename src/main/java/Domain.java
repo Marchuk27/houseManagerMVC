@@ -8,8 +8,8 @@ public class Domain {
     public static void main(String[] args) {
         UserTestService userTestService = new UserTestService();
         TestUsers testUsers = new TestUsers();
-        testUsers.setId(5);
-        testUsers.setFullName("Vasya Pypkin");
+        testUsers.setId(500);
+        testUsers.setFullName("Вася");
         testUsers.setBirthDate("01011976");
 
         try {
