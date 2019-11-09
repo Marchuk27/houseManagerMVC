@@ -98,18 +98,5 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
     </form>
 </div>
-
-
-
-
-<form action="/simplmvcapp_war/add-new-order" method="POST" accept-charset="UTF-8">
-     <label>ID</label>
-    <input type="text" name="id">
-    <label>Full Name</label>
-    <input type="text" name="fullName">
-    <label>Birth Date</label>
-    <input type="text" name="birthDate">
-    <input type="submit" value="Add in DB">
-</form>
 </body>
 </html>
