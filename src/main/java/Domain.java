@@ -1,4 +1,4 @@
-/*import BLBD.Util;
+import BLBD.Util;
 import EntityDB.TestUsers;
 import serviceDB.UserTestService;
 
@@ -9,8 +9,7 @@ public class Domain {
         UserTestService userTestService = new UserTestService();
         TestUsers testUsers = new TestUsers();
         testUsers.setId(500);
-        testUsers.setFullName("Вася");
-        testUsers.setBirthDate("01011976");
+
 
         try {
             userTestService.add(testUsers);
@@ -18,4 +17,4 @@ public class Domain {
             e.printStackTrace();
         }
     }
-}*/
+}
