@@ -1,10 +1,10 @@
-package com.javamaster.service;
+package ru.house.manager.service;
 
 import java.util.List;
 
-import com.javamaster.domain.Order;
-import com.javamaster.repository.OrderRepository;
-import com.javamaster.repository.OrderRepositoryImpl;
+import ru.house.manager.domain.Order;
+import ru.house.manager.repository.OrderRepository;
+import ru.house.manager.repository.OrderRepositoryImpl;
 
 public class OrderServiceImpl implements OrderService {
 

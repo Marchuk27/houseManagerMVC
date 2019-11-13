@@ -1,8 +1,8 @@
-package com.javamaster.service;
+package ru.house.manager.service;
 
 import java.util.List;
 
-import com.javamaster.domain.Order;
+import ru.house.manager.domain.Order;
 
 public interface OrderService {
 

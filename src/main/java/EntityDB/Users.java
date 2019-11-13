@@ -1,7 +1,7 @@
 package EntityDB;
 import java.util.Objects;
 
-public class TestUsers {
+public class Users {
 
     private int id;
     private String firstName;
@@ -67,7 +67,7 @@ public class TestUsers {
         this.eMail = eMail;
     }
 
-    public TestUsers() {
+    public Users() {
 
     }
 

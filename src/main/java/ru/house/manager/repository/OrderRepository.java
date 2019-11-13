@@ -1,8 +1,8 @@
-package com.javamaster.repository;
+package ru.house.manager.repository;
 
 import java.util.List;
 
-import com.javamaster.domain.Order;
+import ru.house.manager.domain.Order;
 
 public interface OrderRepository {
 

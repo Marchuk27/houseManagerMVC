@@ -1,19 +1,19 @@
 package serviceDB;
 import BLBD.Util;
-import daoDB.UserTestDao;
-import EntityDB.TestUsers;
+import daoDB.UsersDao;
+import EntityDB.Users;
 
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserTestService extends Util implements UserTestDao{
+public class UsersService extends Util implements UsersDao {
 
     Connection connection = getConnection();
 
     @Override
-    public void add(TestUsers testUser) throws SQLException {
+    public void add(Users testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
         String sql = "INSERT INTO SBER_USERS (FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?)";
 
@@ -42,8 +42,8 @@ public class UserTestService extends Util implements UserTestDao{
     }
 
     @Override
-    public List<TestUsers> getAll() throws SQLException {
-        List<TestUsers> testUsersList = new ArrayList<>();
+    public List<Users> getAll() throws SQLException {
+        List<Users> usersList = new ArrayList<>();
 
         String sql = "SELECT ID, FULL_NAME, BIRTH_DATE FROM TEST_USERS";
         Statement statement = null;
@@ -53,12 +53,12 @@ public class UserTestService extends Util implements UserTestDao{
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                TestUsers testUsers = new TestUsers();
-                testUsers.setId(resultSet.getInt("ID"));
+                Users users = new Users();
+                users.setId(resultSet.getInt("ID"));
                 //testUsers.setFullName(resultSet.getString("FULL_NAME"));
                 //testUsers.setBirthDate(resultSet.getString("BIRTH_DATE"));
 
-                testUsersList.add(testUsers);
+                usersList.add(users);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,15 +70,15 @@ public class UserTestService extends Util implements UserTestDao{
                 connection.close();
             }
         }
-        return  testUsersList;
+        return usersList;
     }
 
     @Override
-    public TestUsers getById(int id) throws SQLException {
+    public Users getById(int id) throws SQLException {
 
         String sql = "SELECT ID, FULL_NAME, BIRTH_DATE FROM TEST_USERS WHERE ID = ?";
         PreparedStatement preparedStatement = null;
-        TestUsers testUsers = new TestUsers();
+        Users users = new Users();
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -86,7 +86,7 @@ public class UserTestService extends Util implements UserTestDao{
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            testUsers.setId(resultSet.getInt("ID"));
+            users.setId(resultSet.getInt("ID"));
             //testUsers.setFullName(resultSet.getString("FULL_NAME"));
             //testUsers.setBirthDate(resultSet.getString("BIRTH_DATE"));
 
@@ -102,11 +102,11 @@ public class UserTestService extends Util implements UserTestDao{
                 connection.close();
             }
         }
-        return  testUsers;
+        return users;
     }
 
     @Override
-    public void update(TestUsers testUser) throws SQLException {
+    public void update(Users testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
         String sql = "UPDATE TEST_USERS SET FULL_NAME = ?, BIRTH_DATE = ? WHERE ID = ?";
 
@@ -131,7 +131,7 @@ public class UserTestService extends Util implements UserTestDao{
     }
 
     @Override
-    public void remove(TestUsers testUser) throws SQLException {
+    public void remove(Users testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
         String sql = "DELETE  FROM TEST_USERS WHERE ID = ?";
 

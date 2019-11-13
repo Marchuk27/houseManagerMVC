@@ -1,4 +1,4 @@
-package com.javamaster.config;
+package ru.house.manager.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

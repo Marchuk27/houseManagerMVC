@@ -1,4 +1,4 @@
-package com.javamaster.config;
+package ru.house.manager.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.javamaster")
+@ComponentScan(basePackages = "ru.house.manager")
 public class WebConfig {
 
     @Bean

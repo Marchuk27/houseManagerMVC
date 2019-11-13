@@ -1,4 +1,4 @@
-package com.javamaster.domain;
+package ru.house.manager.domain;
 
 public class Order {
 
