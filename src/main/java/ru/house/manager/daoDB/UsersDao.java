@@ -1,5 +1,5 @@
-package daoDB;
-import EntityDB.Users;
+package ru.house.manager.daoDB;
+import ru.house.manager.EntityDB.Users;
 
 import java.sql.SQLException;
 import java.util.List;

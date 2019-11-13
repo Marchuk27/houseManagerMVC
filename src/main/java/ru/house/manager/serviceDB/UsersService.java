@@ -1,7 +1,7 @@
-package serviceDB;
-import BLBD.Util;
-import daoDB.UsersDao;
-import EntityDB.Users;
+package ru.house.manager.serviceDB;
+import ru.house.manager.BLDB.Util;
+import ru.house.manager.daoDB.UsersDao;
+import ru.house.manager.EntityDB.Users;
 
 
 import java.sql.*;

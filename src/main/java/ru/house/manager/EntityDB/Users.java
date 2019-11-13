@@ -1,5 +1,4 @@
-package EntityDB;
-import java.util.Objects;
+package ru.house.manager.EntityDB;
 
 public class Users {
 

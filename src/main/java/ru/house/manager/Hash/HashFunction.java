@@ -1,10 +1,10 @@
-package Hash;
+package ru.house.manager.Hash;
 
 
 import java.security.MessageDigest;
 import javax.xml.bind.DatatypeConverter;
 import java.util.Random;
-import MagicString.magicString;
+import ru.house.manager.Hash.MagicString.magicString;
 
 public class HashFunction {
 
