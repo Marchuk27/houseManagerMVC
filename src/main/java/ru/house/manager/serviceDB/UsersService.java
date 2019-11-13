@@ -19,8 +19,6 @@ public class UsersService extends Util implements UsersDao {
 
         try {
             preparedStatement = connection.prepareStatement((sql));
-
-
             preparedStatement.setString(1, testUser.getFirstName());
             preparedStatement.setString(2, testUser.getLastName());
             preparedStatement.setString(3, testUser.getFatherName());
