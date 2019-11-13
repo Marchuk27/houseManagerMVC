@@ -19,17 +19,17 @@ public class PageController {
 
 
     @RequestMapping(value="/", method=RequestMethod.GET)
-    public String getOrderPage(Model model) {
+    public String getLoginPage(Model model) {
         return "loginForm";
     }
 
     @RequestMapping(value = "/user-registration", method=RequestMethod.GET)
-    public String addNewOrderPage() {
+    public String getNewUserPage() {
         return "userRegistraionForm";
     }
 
     @RequestMapping(value="/user-registration", method=RequestMethod.POST)
-    public String addNewOrder(@RequestParam(value="firstName") String firstName, @RequestParam(value="lastName") String lastName, @RequestParam(value="fatherName") String fatherName, @RequestParam(value="phoneNumb") String phoneNumber, @RequestParam(value="eMail") String eMail, @RequestParam(value="roomNumb") String roomNumber) throws UnsupportedEncodingException, SQLException {
+    public String postNewUserPage(@RequestParam(value="firstName") String firstName, @RequestParam(value="lastName") String lastName, @RequestParam(value="fatherName") String fatherName, @RequestParam(value="phoneNumb") String phoneNumber, @RequestParam(value="eMail") String eMail, @RequestParam(value="roomNumb") String roomNumber) throws UnsupportedEncodingException, SQLException {
 
         UsersService usersService = new UsersService();
         Users user = new Users();

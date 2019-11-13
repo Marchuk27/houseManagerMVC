@@ -6,7 +6,7 @@ import java.util.List;
 public interface UsersDao {
 
     // create
-    void add(Users testUser) throws SQLException;
+    void add(Users User) throws SQLException;
 
     // read
     List<Users> getAll() throws SQLException;
