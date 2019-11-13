@@ -13,8 +13,8 @@ public interface UsersDao {
     Users getById(int id) throws SQLException;
 
     // update
-    void update(Users testUser) throws SQLException;
+    void update(Users User) throws SQLException;
 
     // delete
-    void remove(Users testUser) throws SQLException;
+    void remove(Users User) throws SQLException;
 }

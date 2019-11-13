@@ -15,7 +15,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public void add(Users testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO SBER_USERS (FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO USERS_HM (FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement((sql));
@@ -43,7 +43,7 @@ public class UsersService extends Util implements UsersDao {
     public List<Users> getAll() throws SQLException {
         List<Users> usersList = new ArrayList<>();
 
-        String sql = "SELECT ID, FULL_NAME, BIRTH_DATE FROM TEST_USERS";
+        String sql = "SELECT ID, FIRST_NAME, LAST_NAME FROM USERS_HM";
         Statement statement = null;
 
         try {
@@ -53,9 +53,8 @@ public class UsersService extends Util implements UsersDao {
             while (resultSet.next()) {
                 Users users = new Users();
                 users.setId(resultSet.getInt("ID"));
-                //testUsers.setFullName(resultSet.getString("FULL_NAME"));
-                //testUsers.setBirthDate(resultSet.getString("BIRTH_DATE"));
-
+                users.setFirstName(resultSet.getString("FIRST_NAME"));
+                users.setLastName(resultSet.getString("LAST_NAME"));
                 usersList.add(users);
             }
         } catch (SQLException e) {
@@ -74,7 +73,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public Users getById(int id) throws SQLException {
 
-        String sql = "SELECT ID, FULL_NAME, BIRTH_DATE FROM TEST_USERS WHERE ID = ?";
+        String sql = "ELECT ID, FIRST_NAME, LAST_NAME FROM USERS_HM WHERE ID = ?";
         PreparedStatement preparedStatement = null;
         Users users = new Users();
 
@@ -85,8 +84,8 @@ public class UsersService extends Util implements UsersDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             users.setId(resultSet.getInt("ID"));
-            //testUsers.setFullName(resultSet.getString("FULL_NAME"));
-            //testUsers.setBirthDate(resultSet.getString("BIRTH_DATE"));
+            users.setFirstName(resultSet.getString("FIRST_NAME"));
+            users.setLastName(resultSet.getString("LAST_NAME"));
 
             preparedStatement.executeUpdate();
 
@@ -106,13 +105,13 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public void update(Users testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "UPDATE TEST_USERS SET FULL_NAME = ?, BIRTH_DATE = ? WHERE ID = ?";
+        String sql = "UPDATE USERS_HM SET FIRST_NAME = ?, LAST_NAME = ? WHERE ID = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
 
-            //preparedStatement.setString(1, testUser.getFullName());
-            //preparedStatement.setString(2, testUser.getBirthDate());
+            preparedStatement.setString(1, testUser.getFirstName());
+            preparedStatement.setString(2, testUser.getLastName());
             preparedStatement.setInt(3, testUser.getId());
 
             preparedStatement.executeUpdate();
@@ -131,7 +130,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public void remove(Users testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "DELETE  FROM TEST_USERS WHERE ID = ?";
+        String sql = "DELETE  FROM USERS_HM WHERE ID = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
