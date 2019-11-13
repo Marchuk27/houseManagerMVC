@@ -56,14 +56,14 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/simplmvcapp_war/">Авторизация</a></li>
-                <li><a href="/simplmvcapp_war/add-new-order/">Регистрация</a></li>
+                <li><a href="/house.manager/">Авторизация</a></li>
+                <li><a href="/house.manager/user-registration/">Регистрация</a></li>
             </ul>
         </div>
     </div>
 </div>
 <div class="container">
-    <form class="form-signin" action="/simplmvcapp_war/add-new-order" method="POST" accept-charset="UTF-8" role="form">
+    <form class="form-signin" action="/house.manager/user-registration" method="POST" accept-charset="UTF-8" role="form">
         <h3 class="form-signin-heading">Регистрация</h3>
         <div class="registration-code">
             <h4 class="advice">Введите код доступа для регистрации</h4>

@@ -68,8 +68,8 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/simplmvcapp_war/">Авторизация</a></li>
-                <li><a href="/simplmvcapp_war/add-new-order/">Регистрация</a></li>
+                <li><a href="/house.manager/">Авторизация</a></li>
+                <li><a href="/house.manager/user-registration/">Регистрация</a></li>
                 <!--<li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -98,7 +98,7 @@
         <h3 class="form-signin-footing">Нет учётной записи?</h3>
         <form>
             <button class="btn btn-lg btn-info btn-block" >
-                <a class="redirection" href="/simplmvcapp_war/add-new-order">Зарегистрироваться</a>
+                <a class="redirection" href="/house.manager/user-registration">Зарегистрироваться</a>
             </button>
         </form>
     </form>

@@ -26,15 +26,15 @@ public class OrderController {
     public String getOrderPage(Model model) {
         List<Order> orders = orderService.getAll();
         model.addAttribute("orderList", orders);
-        return "order";
+        return "loginForm";
     }
 
-    @RequestMapping(value = "/add-new-order", method=RequestMethod.GET)
+    @RequestMapping(value = "/user-registration", method=RequestMethod.GET)
     public String addNewOrderPage() {
-        return "addNewOrder";
+        return "userRegistraionForm";
     }
 
-    @RequestMapping(value="/add-new-order", method=RequestMethod.POST)
+    @RequestMapping(value="/user-registration", method=RequestMethod.POST)
     public String addNewOrder(@RequestParam(value="firstName") String firstName, @RequestParam(value="lastName") String lastName, @RequestParam(value="fatherName") String fatherName, @RequestParam(value="phoneNumb") String phoneNumber, @RequestParam(value="eMail") String eMail, @RequestParam(value="roomNumb") String roomNumber) throws UnsupportedEncodingException, SQLException {
 
         UserTestService userTestService = new UserTestService();

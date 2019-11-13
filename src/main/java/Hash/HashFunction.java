@@ -1,4 +1,4 @@
-package hash;
+package Hash;
 
 
 import java.security.MessageDigest;

@@ -1,10 +1,8 @@
 package serviceDB;
 import BLBD.Util;
-import com.sun.xml.xsom.XSTerm;
-import com.sun.xml.xsom.visitor.XSTermFunction;
 import daoDB.UserTestDao;
 import EntityDB.TestUsers;
-import oracle.jdbc.proxy.annotation.Pre;
+
 
 import java.sql.*;
 import java.util.ArrayList;
