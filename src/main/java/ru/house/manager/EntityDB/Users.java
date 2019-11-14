@@ -3,6 +3,26 @@ package ru.house.manager.EntityDB;
 public class Users {
 
     private int id;
+
+    public int getHouseId() {
+        return houseId;
+    }
+
+    public void setHouseId(int houseId) {
+        this.houseId = houseId;
+    }
+
+    private int houseId;
+
+    public int getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
+    }
+
+    private  int account_id;
     private String firstName;
     private String lastName;
     private String fatherName;

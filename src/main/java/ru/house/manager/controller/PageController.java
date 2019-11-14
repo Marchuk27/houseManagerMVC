@@ -59,13 +59,42 @@ public class PageController {
     public String postNewUserPage(@RequestParam(value="firstName") String firstName, @RequestParam(value="lastName") String lastName, @RequestParam(value="fatherName") String fatherName,
                                   @RequestParam(value="phoneNumb") String phoneNumber, @RequestParam(value="eMail") String eMail, @RequestParam(value="roomNumb") String roomNumber,
                                   @RequestParam(value="login") String login, @RequestParam(value="password") String password,
-                                  @RequestParam(value="password2") String password2 ) throws UnsupportedEncodingException, SQLException {
+                                  @RequestParam(value="password2") String password2, @RequestParam(value="accessCode") String accessCode) throws UnsupportedEncodingException, SQLException, NoSuchAlgorithmException {
 
         if (!password.equals(password2)) {
             return "passwordNotEquals";
         } else {
+            String salt1 = HashFunction.getSalt1();
+            AccountsService accountsService = new AccountsService();
+            Accounts account = new Accounts();
+            account.seteMail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
+            account.setHashPassword(HashFunction.getHash(password, salt1, HashFunction.getSalt2()));
+            account.setResidentFlag(1);
+            account.setSalt(salt1);
+            accountsService.add(account);
+
+            AccountsService idAccount = new AccountsService();
+            Accounts idacc = idAccount.getByEmail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
+
             UsersService usersService = new UsersService();
             Users user = new Users();
+            user.setHouseId(1);
+            user.setAccount_id(idacc.getId());
+            user.setFirstName(new String(firstName.getBytes("ISO-8859-1"), "UTF-8"));
+            user.setLastName(new String(lastName.getBytes("ISO-8859-1"), "UTF-8"));
+            user.setFatherName(new String(fatherName.getBytes("ISO-8859-1"), "UTF-8"));
+            user.setPhoneNumber(new String(phoneNumber.getBytes("ISO-8859-1"), "UTF-8"));
+            user.seteMail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
+            user.setRoomNumber(new String(roomNumber.getBytes("ISO-8859-1"), "UTF-8"));
+            usersService.add(user);
+
+            return "redirect:/";
+
+        }
+        /*else {
+            UsersService usersService = new UsersService();
+            Users user = new Users();
+            user.setHouseId(1);
             user.setFirstName(new String(firstName.getBytes("ISO-8859-1"), "UTF-8"));
             user.setLastName(new String(lastName.getBytes("ISO-8859-1"), "UTF-8"));
             user.setFatherName(new String(fatherName.getBytes("ISO-8859-1"), "UTF-8"));
@@ -95,7 +124,7 @@ public class PageController {
                 e.printStackTrace();
             }
             return "redirect:/";
-        }
+        }*/
     }
 
 }

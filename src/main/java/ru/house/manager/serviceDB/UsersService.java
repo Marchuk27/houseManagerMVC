@@ -15,16 +15,18 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public void add(Users testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO USERS_HMS (FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO USERS_HMS (HOUSE_ID, ACCOUNT_ID, FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement((sql));
-            preparedStatement.setString(1, testUser.getFirstName());
-            preparedStatement.setString(2, testUser.getLastName());
-            preparedStatement.setString(3, testUser.getFatherName());
-            preparedStatement.setString(4, testUser.getPhoneNumber());
-            preparedStatement.setString(5, testUser.geteMail());
-            preparedStatement.setString(6, testUser.getRoomNumber());
+            preparedStatement.setInt(1,testUser.getHouseId());
+            preparedStatement.setInt(2,testUser.getAccount_id());
+            preparedStatement.setString(3, testUser.getFirstName());
+            preparedStatement.setString(4, testUser.getLastName());
+            preparedStatement.setString(5, testUser.getFatherName());
+            preparedStatement.setString(6, testUser.getPhoneNumber());
+            preparedStatement.setString(7, testUser.geteMail());
+            preparedStatement.setString(8, testUser.getRoomNumber());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -73,7 +75,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public Users getById(int id) throws SQLException {
 
-        String sql = "SELECT FIRST_NAME, LAST_NAME FROM USERS_HMS WHERE USER_ID = ?";
+        String sql = "SELECT FIRST_NAME, LAST_NAME, HOUSE_ID FROM USERS_HMS WHERE USER_ID = ?";
         PreparedStatement preparedStatement = null;
         Users users = new Users();
 
@@ -85,6 +87,7 @@ public class UsersService extends Util implements UsersDao {
 
             users.setFirstName(resultSet.getString("FIRST_NAME"));
             users.setLastName(resultSet.getString("LAST_NAME"));
+            users.setHouseId(resultSet.getInt("HOUSE_ID"));
 
             preparedStatement.executeUpdate();
 
