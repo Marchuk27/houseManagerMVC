@@ -1,6 +1,7 @@
 package ru.house.manager.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import ru.house.manager.EntityDB.Users;
@@ -18,13 +19,15 @@ import ru.house.manager.Hash.*;
 @Controller
 public class PageController {
 
+    public static int client_id = -1;
+
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String getLoginPage(Model model) {
         return "loginForm";
     }
 
     @RequestMapping(value="/", method = RequestMethod.POST)
-    public String postLoginPage(@RequestParam(value="eMail") String eMail, @RequestParam(value="password") String password) throws UnsupportedEncodingException, SQLException {
+    public String postLoginPage(@RequestParam(value="eMail") String eMail, @RequestParam(value="password") String password) throws UnsupportedEncodingException, SQLException, NoSuchAlgorithmException {
 
         AccountsService accountsService = new AccountsService();
         Accounts account = new Accounts();
@@ -34,6 +37,7 @@ public class PageController {
             e.printStackTrace();
         }
         if (HashFunction.getHash(new String(password.getBytes("ISO-8859-1"), "UTF-8"), account.getSalt(), HashFunction.getSalt2()).equals(account.getHashPassword())) {
+            client_id = account.getId();
             return "userMainForm";
         } else {
             return "loginForm";
@@ -74,14 +78,14 @@ public class PageController {
                     AccountsService accountsService = new AccountsService();
                     Accounts account = new Accounts();
                     account.setId(newId);
-                    account.seteMail(new String(login.getBytes("ISO-8859-1"), "UTF-8"));
-                    account.setHashPassword(HashFunction.getHash(new String(password.getBytes("ISO-8859-1"), "UTF-8"), salt1, HashFunction.getSalt2()));
+                    account.seteMail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
+                    account.setHashPassword(HashFunction.getHash(password, salt1, HashFunction.getSalt2()));
                     account.setResidentFlag(1);
                     account.setSalt(salt1);
                     accountsService.add(account);
                 }
 
-            } catch (SQLException e) {
+            } catch (SQLException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
             return "redirect:/";

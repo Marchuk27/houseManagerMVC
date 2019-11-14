@@ -15,7 +15,7 @@ public class AccountsService extends Util implements AccountsDao{
     @Override
     public void add(Accounts Account) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO ACCOUNTS_HM (ACCOUNT_ID, E_MAIL, HASH_PASSWORD, RESIDENT_FLAG, SALT) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ACCOUNTS_HM (ACCOUNT_ID, LOGIN, HASH_PASSWORD, RESIDENT_FLAG, SALT) VALUES(?, ?, ?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement((sql));
             preparedStatement.setInt(1, Account.getId());
@@ -103,7 +103,7 @@ public class AccountsService extends Util implements AccountsDao{
 
     @Override
     public Accounts getByEmail(String eMail) throws SQLException {
-        String sql = "SELECT  HASH_PASSWORD, RESIDENT_FLAG, SALT FROM ACCOUNTS_HM WHERE E_MAIL = ?";
+        String sql = "SELECT  HASH_PASSWORD, RESIDENT_FLAG, SALT, ACCOUNT_ID FROM ACCOUNTS_HM WHERE E_MAIL = ?";
         PreparedStatement preparedStatement = null;
         Accounts account = new Accounts();
 
@@ -116,6 +116,7 @@ public class AccountsService extends Util implements AccountsDao{
             account.setHashPassword(resultSet.getString("HASH_PASSWORD"));
             account.setResidentFlag(resultSet.getInt("RESIDENT_FLAG"));
             account.setSalt(resultSet.getString("SALT"));
+            account.setId(resultSet.getInt("ACCOUNT_ID"));
 
             preparedStatement.executeUpdate();
 

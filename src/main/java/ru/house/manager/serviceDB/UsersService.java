@@ -15,7 +15,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public void add(Users testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO USERS_HM (FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SBER_USERS (FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement((sql));
