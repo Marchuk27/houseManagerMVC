@@ -103,7 +103,7 @@ public class AccountsService extends Util implements AccountsDao{
 
     @Override
     public Accounts getByEmail(String eMail) throws SQLException {
-        String sql = "SELECT  HASH_PASSWORD, RESIDENT_FLAG, SALT, ACCOUNT_ID FROM ACCOUNTS_HM WHERE E_MAIL = ?";
+        String sql = "SELECT  HASH_PASSWORD, RESIDENT_FLAG, SALT, ACCOUNT_ID FROM ACCOUNTS_HM WHERE LOGIN = ?";
         PreparedStatement preparedStatement = null;
         Accounts account = new Accounts();
 
@@ -112,6 +112,7 @@ public class AccountsService extends Util implements AccountsDao{
             preparedStatement.setString(1, eMail);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
 
             account.setHashPassword(resultSet.getString("HASH_PASSWORD"));
             account.setResidentFlag(resultSet.getInt("RESIDENT_FLAG"));

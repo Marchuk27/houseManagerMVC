@@ -83,7 +83,7 @@
     </div>
 </div>
 <div class="container">
-    <form class="form-signin" role="form">
+    <form class="form-signin" role="form" action="/house.manager/" method="post">
 
         <h3 class="form-signin-heading">Вход в сервис</h3>
         <input type="email" class="form-control" placeholder="Адрес электронной почты" name = "eMail" autofocus>
