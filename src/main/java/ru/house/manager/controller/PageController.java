@@ -26,8 +26,18 @@ public class PageController {
     @RequestMapping(value="/", method = RequestMethod.POST)
     public String postLoginPage(@RequestParam(value="eMail") String eMail, @RequestParam(value="password") String password) throws UnsupportedEncodingException, SQLException {
 
-
-        return "userMainFrom";
+        AccountsService accountsService = new AccountsService();
+        Accounts account = new Accounts();
+        try {
+            account = accountsService.getByEmail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (HashFunction.getHash(new String(password.getBytes("ISO-8859-1"), "UTF-8"), account.getSalt(), HashFunction.getSalt2()).equals(account.getHashPassword())) {
+            return "userMainForm";
+        } else {
+            return "loginForm";
+        }
     }
 
     @RequestMapping(value = "/user-registration", method=RequestMethod.GET)
