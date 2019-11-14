@@ -10,6 +10,7 @@ public interface AccountsDao {
     // read
     List<Accounts> getAll() throws SQLException;
     Accounts getById(int id) throws SQLException;
+    Accounts getByEmail(String eMail) throws SQLException;
 
     // update
     void update(Accounts Account) throws SQLException;

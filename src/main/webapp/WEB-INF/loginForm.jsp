@@ -86,8 +86,8 @@
     <form class="form-signin" role="form">
 
         <h3 class="form-signin-heading">Вход в сервис</h3>
-        <input type="email" class="form-control" placeholder="Адрес электронной почты" autofocus>
-        <input type="password" class="form-control" placeholder="Пароль">
+        <input type="email" class="form-control" placeholder="Адрес электронной почты" name = "eMail" autofocus>
+        <input type="password" class="form-control" placeholder="Пароль" name = "password">
         <label class="checkbox">
             <input type="checkbox" value="remember-me">Запомнить меня
         </label>

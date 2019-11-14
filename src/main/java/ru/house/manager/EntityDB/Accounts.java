@@ -3,7 +3,7 @@ package ru.house.manager.EntityDB;
 public class Accounts {
 
     private int id;
-    private String login;
+    private String eMail;
     private String hashPassword;
     private String salt;
     private int residentFlag;
@@ -16,12 +16,12 @@ public class Accounts {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String geteMail() {
+        return eMail;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
     }
 
     public String getHashPassword() {
