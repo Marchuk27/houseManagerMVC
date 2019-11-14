@@ -44,7 +44,7 @@ public class Accounts {
         return residentFlag;
     }
 
-    public void setResidentFlag(char residentFlag) {
+    public void setResidentFlag(int residentFlag) {
         this.residentFlag = residentFlag;
     }
 

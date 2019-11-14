@@ -17,4 +17,5 @@ public interface UsersDao {
 
     // delete
     void remove(Users User) throws SQLException;
+    int getLastId() throws SQLException;
 }

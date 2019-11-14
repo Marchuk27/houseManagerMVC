@@ -73,7 +73,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public Users getById(int id) throws SQLException {
 
-        String sql = "ELECT ID, FIRST_NAME, LAST_NAME FROM USERS_HM WHERE ID = ?";
+        String sql = "SELECT FIRST_NAME, LAST_NAME FROM USERS_HM WHERE ID = ?";
         PreparedStatement preparedStatement = null;
         Users users = new Users();
 
@@ -83,7 +83,6 @@ public class UsersService extends Util implements UsersDao {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            users.setId(resultSet.getInt("ID"));
             users.setFirstName(resultSet.getString("FIRST_NAME"));
             users.setLastName(resultSet.getString("LAST_NAME"));
 
@@ -103,16 +102,16 @@ public class UsersService extends Util implements UsersDao {
     }
 
     @Override
-    public void update(Users testUser) throws SQLException {
+    public void update(Users user) throws SQLException {
         PreparedStatement preparedStatement = null;
         String sql = "UPDATE USERS_HM SET FIRST_NAME = ?, LAST_NAME = ? WHERE ID = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1, testUser.getFirstName());
-            preparedStatement.setString(2, testUser.getLastName());
-            preparedStatement.setInt(3, testUser.getId());
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setInt(3, user.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -128,14 +127,14 @@ public class UsersService extends Util implements UsersDao {
     }
 
     @Override
-    public void remove(Users testUser) throws SQLException {
+    public void remove(Users user) throws SQLException {
         PreparedStatement preparedStatement = null;
         String sql = "DELETE  FROM USERS_HM WHERE ID = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setInt(1, testUser.getId());
+            preparedStatement.setInt(1, user.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -148,5 +147,30 @@ public class UsersService extends Util implements UsersDao {
                 connection.close();
             }
         }
+    }
+
+    @Override
+    public int getLastId() throws SQLException {
+        String sql = "SELECT ID FROM sber_USERS WHERE ID = ( SELECT MAX(ID) FROM SBER_USERS)";
+        Statement statement = null;
+        int id = -1;
+
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            resultSet.next();
+            id = resultSet.getInt("ID");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return id;
+
     }
 }
