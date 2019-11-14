@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
+import ru.house.manager.EntityDB.Managers;
 import ru.house.manager.EntityDB.Users;
 import ru.house.manager.EntityDB.Accounts;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ru.house.manager.serviceDB.AccountsService;
+import ru.house.manager.serviceDB.ManagersService;
 import ru.house.manager.serviceDB.UsersService;
 import ru.house.manager.Hash.*;
 
@@ -89,42 +91,51 @@ public class PageController {
             usersService.add(user);
 
             return "redirect:/";
-
         }
-        /*else {
-            UsersService usersService = new UsersService();
-            Users user = new Users();
-            user.setHouseId(1);
-            user.setFirstName(new String(firstName.getBytes("ISO-8859-1"), "UTF-8"));
-            user.setLastName(new String(lastName.getBytes("ISO-8859-1"), "UTF-8"));
-            user.setFatherName(new String(fatherName.getBytes("ISO-8859-1"), "UTF-8"));
-            user.setPhoneNumber(new String(phoneNumber.getBytes("ISO-8859-1"), "UTF-8"));
-            user.seteMail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
-            user.setRoomNumber(new String(roomNumber.getBytes("ISO-8859-1"), "UTF-8"));
+    }
 
-            try {
-                usersService.add(user);
-                UsersService idService = new UsersService();
-                int newId = idService.getLastId();
-                if (newId == -1) {
-                    return "sqlDoesntCompilePage";
-                } else {
-                    String salt1 = HashFunction.getSalt1();
-                    AccountsService accountsService = new AccountsService();
-                    Accounts account = new Accounts();
-                    account.setId(newId);
-                    account.seteMail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
-                    account.setHashPassword(HashFunction.getHash(password, salt1, HashFunction.getSalt2()));
-                    account.setResidentFlag(1);
-                    account.setSalt(salt1);
-                    accountsService.add(account);
-                }
 
-            } catch (SQLException | NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
+
+    @RequestMapping(value = "/manager-registration", method=RequestMethod.GET)
+    public String getNewManagerPage() {
+        return "managerRegistrationForm";
+    }
+
+    @RequestMapping(value="/manager-registration", method=RequestMethod.POST)
+    public String postNewManagerPage(@RequestParam(value="firstName") String firstName, @RequestParam(value="lastName") String lastName, @RequestParam(value="fatherName") String fatherName,
+                                  @RequestParam(value="phoneNumb") String phoneNumber, @RequestParam(value="eMail") String eMail, @RequestParam(value="companyName") String companyName,
+                                  @RequestParam(value="login") String login, @RequestParam(value="password") String password,
+                                  @RequestParam(value="password2") String password2, @RequestParam(value="someInfo") String someInfo) throws UnsupportedEncodingException, SQLException, NoSuchAlgorithmException {
+
+        if (!password.equals(password2)) {
+            return "passwordNotEquals";
+        } else {
+            String salt1 = HashFunction.getSalt1();
+            AccountsService accountsService = new AccountsService();
+            Accounts account = new Accounts();
+            account.seteMail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
+            account.setHashPassword(HashFunction.getHash(password, salt1, HashFunction.getSalt2()));
+            account.setResidentFlag(0);
+            account.setSalt(salt1);
+            accountsService.add(account);
+
+            AccountsService idAccount = new AccountsService();
+            Accounts idacc = idAccount.getByEmail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
+
+            ManagersService managersService = new ManagersService();
+            Managers manager = new Managers();
+            manager.setCompanyName(new String(companyName.getBytes("ISO-8859-1"), "UTF-8"));
+            manager.setFirstName(new String(firstName.getBytes("ISO-8859-1"), "UTF-8"));
+            manager.setLastName(new String(lastName.getBytes("ISO-8859-1"), "UTF-8"));
+            manager.setFatherName(new String(fatherName.getBytes("ISO-8859-1"), "UTF-8"));
+            manager.setEmail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
+            manager.setPhoneNumber(new String(phoneNumber.getBytes("ISO-8859-1"), "UTF-8"));
+            manager.setSomeInfo(new String(someInfo.getBytes("ISO-8859-1"), "UTF-8"));
+            manager.setAccountId(idacc.getId());
+            managersService.add(manager);
+
             return "redirect:/";
-        }*/
+        }
     }
 
 }
