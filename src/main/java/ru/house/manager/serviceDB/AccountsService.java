@@ -15,14 +15,13 @@ public class AccountsService extends Util implements AccountsDao{
     @Override
     public void add(Accounts Account) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO ACCOUNTS_HM (ACCOUNT_ID, LOGIN, HASH_PASSWORD, RESIDENT_FLAG, SALT) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ACCOUNTS_HMS (E_MAIL, HASH_PASSWORD, RESIDENT_FLAG, SALT) VALUES(?, ?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement((sql));
-            preparedStatement.setInt(1, Account.getId());
-            preparedStatement.setString(2, Account.geteMail());
-            preparedStatement.setString(3, Account.getHashPassword());
-            preparedStatement.setInt(4, Account.getResidentFlag());
-            preparedStatement.setString(5, Account.getSalt());
+            preparedStatement.setString(1, Account.geteMail());
+            preparedStatement.setString(2, Account.getHashPassword());
+            preparedStatement.setInt(3, Account.getResidentFlag());
+            preparedStatement.setString(4, Account.getSalt());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,7 +39,7 @@ public class AccountsService extends Util implements AccountsDao{
     public List<Accounts> getAll() throws SQLException {
         List<Accounts> accountsList = new ArrayList<>();
 
-        String sql = "SELECT ACCOUNT_ID, E_MAIL, HASH_PASSWORD, RESIDENT_FLAG, SALT FROM ACCOUNTS_HM";
+        String sql = "SELECT ACCOUNT_ID, E_MAIL, HASH_PASSWORD, RESIDENT_FLAG, SALT FROM ACCOUNTS_HMS";
         Statement statement = null;
 
         try {
@@ -71,7 +70,7 @@ public class AccountsService extends Util implements AccountsDao{
 
     @Override
     public Accounts getById(int id) throws SQLException {
-        String sql = "SELECT E_MAIL, HASH_PASSWORD, RESIDENT_FLAG, SALT FROM ACCOUNTS_HM WHERE ACCOUNT_ID = ?";
+        String sql = "SELECT E_MAIL, HASH_PASSWORD, RESIDENT_FLAG, SALT FROM ACCOUNTS_HMS WHERE ACCOUNT_ID = ?";
         PreparedStatement preparedStatement = null;
         Accounts account = new Accounts();
 
@@ -103,7 +102,7 @@ public class AccountsService extends Util implements AccountsDao{
 
     @Override
     public Accounts getByEmail(String eMail) throws SQLException {
-        String sql = "SELECT  HASH_PASSWORD, RESIDENT_FLAG, SALT, ACCOUNT_ID FROM ACCOUNTS_HM WHERE LOGIN = ?";
+        String sql = "SELECT  HASH_PASSWORD, RESIDENT_FLAG, SALT, ACCOUNT_ID FROM ACCOUNTS_HMS WHERE E_MAIL = ?";
         PreparedStatement preparedStatement = null;
         Accounts account = new Accounts();
 
@@ -137,7 +136,7 @@ public class AccountsService extends Util implements AccountsDao{
     @Override
     public void update(Accounts Account) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "UPDATE ACCOUNTS_HM SET E_MAIL = ?, HASH_PASSWORD = ?, RESIDENT_FLAG = ?, SALT = ? WHERE ACCOUNT_ID = ?";
+        String sql = "UPDATE ACCOUNTS_HMS SET E_MAIL = ?, HASH_PASSWORD = ?, RESIDENT_FLAG = ?, SALT = ? WHERE ACCOUNT_ID = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -164,7 +163,7 @@ public class AccountsService extends Util implements AccountsDao{
     @Override
     public void remove(Accounts Account) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "DELETE FROM ACCOUNTS_HM WHERE ACCOUNT_ID = ?";
+        String sql = "DELETE FROM ACCOUNTS_HMS WHERE ACCOUNT_ID = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);

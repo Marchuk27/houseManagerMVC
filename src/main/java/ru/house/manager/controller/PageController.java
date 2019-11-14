@@ -38,7 +38,13 @@ public class PageController {
         }
         if (HashFunction.getHash(new String(password.getBytes("ISO-8859-1"), "UTF-8"), account.getSalt(), HashFunction.getSalt2()).equals(account.getHashPassword())) {
             client_id = account.getId();
-            return "userMainForm";
+            if(account.getResidentFlag() == 1) {
+                return "userMainForm";
+            }
+            if(account.getResidentFlag() == 0) {
+                return "managerMainForm";
+            }
+            else { return  "residentFlag not exst";}
         } else {
             return "loginForm";
         }

@@ -15,7 +15,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public void add(Users testUser) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO SBER_USERS (FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO USERS_HMS (FIRST_NAME, LAST_NAME, FATHER_NAME, PHONE_NUMBER, E_MAIL, ROOM_NUMBER) VALUES(?, ?, ?, ?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement((sql));
@@ -43,7 +43,7 @@ public class UsersService extends Util implements UsersDao {
     public List<Users> getAll() throws SQLException {
         List<Users> usersList = new ArrayList<>();
 
-        String sql = "SELECT ID, FIRST_NAME, LAST_NAME FROM USERS_HM";
+        String sql = "SELECT USER_ID, FIRST_NAME, LAST_NAME FROM USERS_HMS";
         Statement statement = null;
 
         try {
@@ -52,7 +52,7 @@ public class UsersService extends Util implements UsersDao {
 
             while (resultSet.next()) {
                 Users users = new Users();
-                users.setId(resultSet.getInt("ID"));
+                users.setId(resultSet.getInt("USER_ID"));
                 users.setFirstName(resultSet.getString("FIRST_NAME"));
                 users.setLastName(resultSet.getString("LAST_NAME"));
                 usersList.add(users);
@@ -73,7 +73,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public Users getById(int id) throws SQLException {
 
-        String sql = "SELECT FIRST_NAME, LAST_NAME FROM USERS_HM WHERE ID = ?";
+        String sql = "SELECT FIRST_NAME, LAST_NAME FROM USERS_HMS WHERE USER_ID = ?";
         PreparedStatement preparedStatement = null;
         Users users = new Users();
 
@@ -104,7 +104,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public void update(Users user) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "UPDATE USERS_HM SET FIRST_NAME = ?, LAST_NAME = ? WHERE ID = ?";
+        String sql = "UPDATE USERS_HMS SET FIRST_NAME = ?, LAST_NAME = ? WHERE USER_ID = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -129,7 +129,7 @@ public class UsersService extends Util implements UsersDao {
     @Override
     public void remove(Users user) throws SQLException {
         PreparedStatement preparedStatement = null;
-        String sql = "DELETE  FROM USERS_HM WHERE ID = ?";
+        String sql = "DELETE  FROM USERS_HMS WHERE USER_ID = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -151,7 +151,7 @@ public class UsersService extends Util implements UsersDao {
 
     @Override
     public int getLastId() throws SQLException {
-        String sql = "SELECT ID FROM sber_USERS WHERE ID = ( SELECT MAX(ID) FROM SBER_USERS)";
+        String sql = "SELECT USER_ID FROM USERS_HMS WHERE USER_ID = ( SELECT MAX(USER_ID) FROM USERS_HMS)";
         Statement statement = null;
         int id = -1;
 
@@ -159,7 +159,7 @@ public class UsersService extends Util implements UsersDao {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             resultSet.next();
-            id = resultSet.getInt("ID");
+            id = resultSet.getInt("USER_ID");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
