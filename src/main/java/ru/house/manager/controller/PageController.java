@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
+import ru.house.manager.EntityDB.Houses;
 import ru.house.manager.EntityDB.Managers;
 import ru.house.manager.EntityDB.Users;
 import ru.house.manager.EntityDB.Accounts;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ru.house.manager.serviceDB.AccountsService;
+import ru.house.manager.serviceDB.HousesService;
 import ru.house.manager.serviceDB.ManagersService;
 import ru.house.manager.serviceDB.UsersService;
 import ru.house.manager.Hash.*;
@@ -61,7 +63,7 @@ public class PageController {
     public String postNewUserPage(@RequestParam(value="firstName") String firstName, @RequestParam(value="lastName") String lastName, @RequestParam(value="fatherName") String fatherName,
                                   @RequestParam(value="phoneNumb") String phoneNumber, @RequestParam(value="eMail") String eMail, @RequestParam(value="roomNumb") String roomNumber,
                                   @RequestParam(value="login") String login, @RequestParam(value="password") String password,
-                                  @RequestParam(value="password2") String password2, @RequestParam(value="accessCode") String accessCode) throws UnsupportedEncodingException, SQLException, NoSuchAlgorithmException {
+                                  @RequestParam(value="password2") String password2, @RequestParam(value="accessCode") int accessCode) throws UnsupportedEncodingException, SQLException, NoSuchAlgorithmException {
 
         if (!password.equals(password2)) {
             return "passwordNotEquals";
@@ -78,9 +80,12 @@ public class PageController {
             AccountsService idAccount = new AccountsService();
             Accounts idacc = idAccount.getByEmail(new String(eMail.getBytes("ISO-8859-1"), "UTF-8"));
 
+            HousesService housesService = new HousesService();
+            Houses house = housesService.getIdByToken(accessCode);
+
             UsersService usersService = new UsersService();
             Users user = new Users();
-            user.setHouseId(1);
+            user.setHouseId(house.getHouseId());
             user.setAccount_id(idacc.getId());
             user.setFirstName(new String(firstName.getBytes("ISO-8859-1"), "UTF-8"));
             user.setLastName(new String(lastName.getBytes("ISO-8859-1"), "UTF-8"));

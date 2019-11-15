@@ -84,6 +84,7 @@ public class UsersService extends Util implements UsersDao {
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
 
             users.setFirstName(resultSet.getString("FIRST_NAME"));
             users.setLastName(resultSet.getString("LAST_NAME"));

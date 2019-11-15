@@ -52,6 +52,7 @@ public class ManagersService extends Util implements ManagerDao{
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
 
             manager.setCompanyName(resultSet.getString("COMPANY_NAME"));
             manager.setFirstName(resultSet.getString("FIRST_NAME"));

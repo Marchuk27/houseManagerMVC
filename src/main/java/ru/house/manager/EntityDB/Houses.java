@@ -41,11 +41,11 @@ public class Houses {
         this.residentsNumber = residentsNumber;
     }
 
-    public String getAccessToken() {
+    public int getAccessToken() {
         return accessToken;
     }
 
-    public void setAccessToken(String accessToken) {
+    public void setAccessToken(int accessToken) {
         this.accessToken = accessToken;
     }
 
@@ -54,7 +54,7 @@ public class Houses {
     private String adress;
     private String city;
     private int residentsNumber;
-    private String accessToken;
+    private int accessToken;
 
     public Houses() {
 
