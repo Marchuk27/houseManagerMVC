@@ -23,7 +23,8 @@ import ru.house.manager.Hash.*;
 @Controller
 public class PageController {
 
-    public static int client_id = -1;
+    public static int client_account_id = -1;
+    public static int manager_id = -1;
 
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String getLoginPage(Model model) {
@@ -41,7 +42,7 @@ public class PageController {
             e.printStackTrace();
         }
         if (HashFunction.getHash(new String(password.getBytes("ISO-8859-1"), "UTF-8"), account.getSalt(), HashFunction.getSalt2()).equals(account.getHashPassword())) {
-            client_id = account.getId();
+            client_account_id = account.getId();
             if(account.getResidentFlag() == 1) {
                 return "userMainForm";
             }
@@ -141,6 +142,28 @@ public class PageController {
 
             return "redirect:/";
         }
+    }
+
+
+    @RequestMapping(value = "/house-registration", method=RequestMethod.GET)
+    public String getNewHousePage() {
+        return "houseRegistrationForm";
+    }
+
+    @RequestMapping(value="/house-registration", method=RequestMethod.POST)
+    public String postNewHousePage(@RequestParam(value="city") String city, @RequestParam(value="address") String address, @RequestParam(value="ResidentsNumber") int residentsNumber) throws UnsupportedEncodingException, SQLException, NoSuchAlgorithmException {
+
+            HousesService housesService = new HousesService();
+            Houses house = new Houses();
+            ManagersService managersService = new ManagersService();
+            Managers manager = managersService.getByAccountId(client_account_id);
+            manager_id = manager.getId();
+            house.setManageCompanyId(manager_id);
+            house.setAdress(new String(address.getBytes("ISO-8859-1"), "UTF-8"));
+            house.setCity(new String(city.getBytes("ISO-8859-1"), "UTF-8"));
+            house.setResidentsNumber(residentsNumber);
+            housesService.add(house);
+            return "houseRegistrationForm";
     }
 
 }

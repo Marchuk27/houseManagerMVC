@@ -43,7 +43,7 @@ public class ManagersService extends Util implements ManagerDao{
     @Override
     public Managers getById(int id) throws SQLException {
 
-        String sql = "SELECT company_name, FIRST_NAME, LAST_NAME, account_id, email, telephone FROM ManageCompanies_HMS WHERE USER_ID = ?";
+        String sql = "SELECT company_name, FIRST_NAME, LAST_NAME, account_id, email, telephone FROM ManageCompanies_HMS WHERE manage_company_id = ?";
         PreparedStatement preparedStatement = null;
         Managers manager = new Managers();
 
@@ -58,6 +58,42 @@ public class ManagersService extends Util implements ManagerDao{
             manager.setFirstName(resultSet.getString("FIRST_NAME"));
             manager.setLastName(resultSet.getString("LAST_NAME"));
             manager.setAccountId(resultSet.getInt("ACCOUNT_ID"));
+            manager.setPhoneNumber(resultSet.getString("TELEPHONE"));
+            manager.setEmail(resultSet.getString("EMAIL"));
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return manager;
+    }
+
+    @Override
+    public Managers getByAccountId(int id) throws SQLException {
+
+        String sql = "SELECT company_name, FIRST_NAME, LAST_NAME, manage_company_id, email, telephone FROM ManageCompanies_HMS WHERE account_id = ?";
+        PreparedStatement preparedStatement = null;
+        Managers manager = new Managers();
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            manager.setCompanyName(resultSet.getString("COMPANY_NAME"));
+            manager.setFirstName(resultSet.getString("FIRST_NAME"));
+            manager.setLastName(resultSet.getString("LAST_NAME"));
+            manager.setId(resultSet.getInt("manage_company_id"));
             manager.setPhoneNumber(resultSet.getString("TELEPHONE"));
             manager.setEmail(resultSet.getString("EMAIL"));
 

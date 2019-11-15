@@ -7,4 +7,5 @@ public interface ManagerDao {
     // create
     void add(Managers Manager) throws SQLException;
     Managers getById(int id) throws SQLException;
+    Managers getByAccountId(int id) throws SQLException;
 }
